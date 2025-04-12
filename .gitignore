@@ -1,0 +1,45 @@
+# Visual Studio 專案暫存檔與設定
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# NuGet 套件快取
+*.nupkg
+*.snupkg
+packages/
+
+# 組建產物
+bin/
+obj/
+Debug/
+Release/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+
+# ASP.NET 特有的暫存資料
+*.dbmdl
+*.bak
+*.mdf
+App_Data/
+
+# publish 資料夾
+publish/
+
+# Web 編譯產物
+*.js.map
+node_modules/
+dist/
+.env
+
+# 系統檔案
+Thumbs.db
+.DS_Store
+*.tmp
+
+# Rider (JetBrains) IDE 的檔案
+.idea/
+*.sln.iml
