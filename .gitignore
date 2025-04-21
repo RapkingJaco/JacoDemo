@@ -43,3 +43,4 @@ Thumbs.db
 # Rider (JetBrains) IDE 的檔案
 .idea/
 *.sln.iml
+JacoDemo/wwwroot/
