@@ -9,7 +9,7 @@ public partial class CustomerBankInfo
 {
     public int BankInfoId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public string BankName { get; set; }
 
@@ -17,9 +17,9 @@ public partial class CustomerBankInfo
 
     public string Currency { get; set; }
 
-    public decimal? Balance { get; set; }
+    public decimal Balance { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
     public virtual CustomerInfo Customer { get; set; }
 

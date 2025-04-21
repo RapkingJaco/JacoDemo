@@ -70,6 +70,8 @@ public partial class JacoBankContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.TransType).HasMaxLength(20);
+            entity.Property(e => e.ReceiverBankName).HasMaxLength(100);
+            entity.Property(e => e.ReceiverAccount).HasMaxLength(100);
 
             entity.HasOne(d => d.BankInfo).WithMany(p => p.CustomerTransInfos)
                 .HasForeignKey(d => d.BankInfoId)

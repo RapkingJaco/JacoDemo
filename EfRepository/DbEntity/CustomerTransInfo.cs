@@ -9,15 +9,17 @@ public partial class CustomerTransInfo
 {
     public int TransId { get; set; }
 
-    public int? CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
-    public int? BankInfoId { get; set; }
+    public int BankInfoId { get; set; }
 
     public string TransType { get; set; }
 
-    public decimal? Amount { get; set; }
+    public decimal Amount { get; set; }
 
-    public DateTime? TransDate { get; set; }
+    public DateTime TransDate { get; set; }
+    public string? ReceiverBankName { get; set; }
+    public string? ReceiverAccount { get; set; }
 
     public string Note { get; set; }
 
