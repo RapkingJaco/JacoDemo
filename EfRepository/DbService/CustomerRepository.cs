@@ -44,9 +44,12 @@ namespace EfRepository.DbService
         //註冊
         public async Task<bool> CreateCustomerAsync(CustomerInfo customer)
         {
-            await _JacoBankContext.CustomerInfos.AddAsync(customer);            
-            await _passwordHistoryService.AddPasswordHistoryAsync((int)customer.CustomerId, customer.Password);
+            //客戶資料
+            await _JacoBankContext.CustomerInfos.AddAsync(customer);
             await _JacoBankContext.SaveChangesAsync();
+            //歷史密碼
+            await _passwordHistoryService.AddPasswordHistoryAsync((int)customer.CustomerId, customer.Password);
+            
 
             return true;
         }
@@ -83,6 +86,7 @@ namespace EfRepository.DbService
             return false;
         }
 
+        //更改密碼
         public async Task<bool> UpdatePasswordAsync(CustomerInfo customer)
         {
             var existingCustomer = await _JacoBankContext.CustomerInfos.FindAsync(customer.CustomerId);
