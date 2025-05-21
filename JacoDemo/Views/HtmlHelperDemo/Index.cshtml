@@ -1,0 +1,44 @@
+﻿@model JacoDemo.Models.ProductViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div>
+    <label>@Model.ID</label>
+    <label>@Model.Name</label>
+    <label>@Model.Code</label>
+</div>
+
+<div>
+    <ul>
+        <li>Html.DisplayName(標題)：Html.Display(資料：注意屬性大小寫)</li>
+        <li>產生的對應HTML TAG自動決定</li>
+    </ul>
+    @Html.DisplayName("id")=>@Html.Display("ID")<br />
+    @Html.DisplayName("name")=>@Html.Display("Name")<br />
+    @Html.DisplayName("code")=>@Html.Display("Code")<br />
+</div>
+
+<div>
+    <ul>
+        <li>Html.DisplayName(標題)：Html.Display(資料：注意屬性大小寫)</li>
+        <li>產生的對應HTML TAG自動決定</li>
+    </ul>
+    @Html.DisplayNameFor(m => m.ID)=>@Html.DisplayFor(m => m.ID)<br />
+    @Html.DisplayNameFor(m => m.Name)=>@Html.DisplayFor(m => m.Name)<br />
+    @Html.DisplayNameFor(m => m.Code)=>@Html.DisplayFor(m => m.Code)<br />
+</div>
+
+<div>
+    @Html.LabelFor(m => m.ID) => @Html.TextBoxFor(m => m.ID)<br />
+    @Html.LabelFor(m => m.Name) => @Html.DisplayFor(m => m.Name)<br />
+</div>
+
+
+
+
+
+
+

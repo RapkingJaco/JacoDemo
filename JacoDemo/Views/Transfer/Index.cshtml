@@ -1,0 +1,70 @@
+﻿@model JacoDemo.Models.TransferViewModel
+@{
+    ViewData["Title"] = "資金轉帳";
+}
+
+<div class="container mt-5">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <div class="card p-4 shadow-sm">
+        <h2 class="mt-4 mb-4 text-primary">資金轉帳</h2>
+
+        <form method="post" asp-controller="Transfer" asp-action="Transfer">
+            <div class="mb-3">
+                <label class="form-label">選擇帳戶</label>
+                <select asp-for="FromBankInfoId" class="form-select">
+                    @if (ViewBag.FromAccounts != null)
+                    {
+                        foreach (var account in ViewBag.FromAccounts)
+                        {
+                            <option value="@account.BankInfoId">
+                                @account.BankName – @account.AccountNumber (餘額：@account.Balance)
+                            </option>
+                        }
+                    }
+                    else
+                    {
+                        <option disabled>⚠ 無帳戶資訊，請稍候或重新登入</option>
+                    }
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">收款銀行</label>
+                    <input asp-for="ToBankName" class="form-control" placeholder="例如：JacoBank" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">收款帳號</label>
+                    <input asp-for="ToAccountNumber" class="form-control" placeholder="輸入帳號" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">金額</label>
+                    <input asp-for="Amount" type="number" class="form-control" placeholder="0.00" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">備註</label>
+                    <input asp-for="Note" class="form-control" placeholder="可選填" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary px-4 mt-3">確認轉帳</button>
+        </form>
+    </div>
+</div>

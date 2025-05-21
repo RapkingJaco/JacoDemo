@@ -1,0 +1,146 @@
+﻿@model CustomerRegisterViewModel
+@{
+    ViewData["Title"] = "CustomerRegister";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊帳號</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                border: none;
+                font-size: 16px;
+                padding: 12px 20px;
+                margin-top: 10px;
+            }
+
+                input[type="submit"]:hover {
+                    background-color: #45a049;
+                }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .form-footer a {
+                color: #4CAF50;
+                text-decoration: none;
+            }
+
+                .form-footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+
+    <!-- 註冊表單容器 -->
+    <div class="container">
+        <h1>註冊帳號</h1>
+        <!-- 註冊表單 -->
+        <form asp-controller="Login" asp-action="Register" method="POST">
+            <!-- 使用者名稱 -->
+            <div class="form-group">
+                <label for="username">使用者名稱</label>
+                <input type="text" id="username" asp-for="UserName" required placeholder="輸入使用者名稱">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <!-- 電子郵件 -->
+            <div class="form-group">
+                <label for="email">電子郵件</label>
+                <input type="email" id="email" asp-for="Email" required placeholder="輸入電子郵件">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- 密碼 -->
+            <div class="form-group">
+                <label for="password">密碼</label>
+                <input type="password" id="password" asp-for="Password" required placeholder="輸入密碼">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- 確認密碼 -->
+            <div class="form-group">
+                <label for="confirm_password">確認密碼</label>
+                <input type="password" id="confirm_password" asp-for="ConfirmPassword" required placeholder="確認密碼">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <!-- 電子郵件 -->
+            <div class="form-group">
+                <label for="phone">電話</label>
+                <input type="text" id="phone" asp-for="Phone" required placeholder="輸入電話">
+            </div>
+
+            <!-- 註冊按鈕 -->
+            <div class="form-group">
+                <input type="submit" value="註冊">
+            </div>
+        </form>
+
+        <!-- 已有帳號，連結到登入頁面 -->
+        <div class="form-footer">
+            <p>已經有帳號了？<a href="/login">點此登入</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

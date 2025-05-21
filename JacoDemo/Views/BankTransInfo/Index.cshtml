@@ -1,0 +1,74 @@
+﻿@model JacoDemo.Models.BankTransInfoViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="pt-4">
+    <form method="post" asp-controller="BankTransInfo" asp-action="QueryTransList" class="row mb-4">
+        <div class="col-md-3">
+            <label>帳號</label>
+            <input asp-for="AccountNumber" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label>類型</label>
+            <select asp-for="TransType" class="form-control">
+                <option value="">全部</option>
+                <option value="存款">存款</option>
+                <option value="提款">提款</option>
+                <option value="轉出">轉出</option>
+                <option value="轉入">轉入</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>開始日期</label>
+            <input asp-for="StartDate" type="date" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label>結束日期</label>
+            <input asp-for="EndDate" type="date" class="form-control" />
+        </div>
+        <div class="col-md-1 align-self-end">
+            <button type="submit" class="btn btn-primary w-100">查詢</button>
+        </div>
+        <div class="col-md-2">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" asp-for="IsCrossBank" />
+                只看跨行交易
+            </label>
+        </div>
+    </form>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>使用者</th>
+            <th>銀行名稱</th>
+            <th>帳號</th>
+            <th>餘額</th>
+            <th>交易日期</th>
+            <th>類型</th>
+            <th>金額</th>
+            <th>對方銀行</th>
+            <th>對方帳號</th>
+            <th>備註</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ResultList)
+        {
+            <tr>
+                <td>@item.CustomerName</td>
+                <td>@item.BankName</td>
+                <td>@item.AccountNumber</td>
+                <td>@item.Balance.ToString("N0")</td>
+                <td>@item.TransDate.ToString()</td>
+                <td>@item.TransType</td>
+                <td>@item.Amount.ToString("N0")</td>
+                <td>@item.ReceiverBankName</td>
+                <td>@item.ReceiverAccount</td>
+                <td>@item.Note</td>
+                
+            </tr>
+        }
+    </tbody>
+</table>

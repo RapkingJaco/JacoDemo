@@ -1,0 +1,156 @@
+﻿@model JacoDemo.Models.CustomerRegisterViewModel;
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["SuccessSaveMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessSaveMessage"]
+    </div>
+}
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本資料修改</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+            input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                border: none;
+                font-size: 16px;
+                padding: 12px 20px;
+                margin-top: 10px;
+            }
+
+                input[type="submit"]:hover {
+                    background-color: #45a049;
+                }
+
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+            .form-footer a {
+                color: #4CAF50;
+                text-decoration: none;
+            }
+
+                .form-footer a:hover {
+                    text-decoration: underline;
+                }
+
+        .btn-link-button {
+            display: block;
+            width: 100%; /* 讓寬度跟 input submit 一樣 */
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            margin-top: 10px;
+            box-sizing: border-box; /* 加這個可以避免 padding 造成寬度超出 */
+        }
+
+            .btn-link-button:hover {
+                background-color: #45a049;
+            }
+
+
+    </style>
+</head>
+<body>
+
+    <!-- 註冊表單容器 -->
+    <div class="container">
+        <h1>基本資料修改</h1>
+        <!-- 註冊表單 -->
+        <form asp-controller="Customer" asp-action="CustomerInfoUpdate" method="POST">
+            <!-- 使用者名稱 -->
+            <div class="form-group">
+                <label for="username">使用者名稱</label>
+                <input type="text" id="username" asp-for="UserName">
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <!-- 電子郵件 -->
+            <div class="form-group">
+                <label for="email">電子郵件</label>
+                <input type="email" id="email" asp-for="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- 電話 -->
+            <div class="form-group">
+                <label for="phone">電話</label>
+                <input type="text" id="phone" asp-for="Phone">
+            </div>
+
+            <!-- 註冊/變更密碼按鈕 -->
+            <div class="form-group">
+                <input type="submit" value="儲存">
+                <a href="/Customer/ChangePassword" class="btn-link-button">變更密碼</a>
+            </div>
+    
+        </form>
+
+
+    </div>
+
+</body>
+</html>
+
+

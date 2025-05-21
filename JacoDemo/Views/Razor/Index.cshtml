@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ProductViewModel>
+@{
+    ViewData["Title"] = "Index";
+    var PageName = "Jaco is cool!";
+    var bmi = 16;
+}
+
+<h1>Index</h1>
+
+<div>
+    PageName is：@PageName
+</div>
+
+@{
+    var Today = DateTime.Now;
+}
+<div>
+    today is ：@Today
+</div>
+<div>
+    today is ：@DateTime.Now.ToString("yyyy-MM-dd")
+</div>
+
+<div>
+    @{
+        if (bmi < 15)
+        {
+            <p>BMI：@bmi，過輕</p>
+        }
+        else if (bmi >= 15 && bmi < 20)
+        {
+            <p>BMI：@bmi，正常</p>
+        }
+        else
+        {
+            <p>BMI：@bmi，要注意身體!</p>
+        }
+    }
+</div>
+
+<div>
+    @{
+        var userType = "VIP";
+        switch (userType)
+        {
+            case "VVVIP":
+                <p>@userType, 免手續費!</p>
+                break;
+            case "VIP":
+                <p>@userType, 交易手續費每單20元</p>
+                break;
+            case "Normal":
+                <p>@userType, 交易手續費每單40元</p>
+                break;
+        }
+    }
+</div>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if(Model != null)
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td>@item.Code</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3"> - 查無資料 -</td>
+                    </tr>
+                }
+            }
+            
+        </tbody>
+    </table>
+</div>
