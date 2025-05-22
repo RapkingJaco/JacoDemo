@@ -17,6 +17,8 @@ public partial class CustomerTransInfo
 
     public decimal Amount { get; set; }
 
+    public decimal BalanceAfter { get; set; }
+
     public DateTime TransDate { get; set; }
     public string? ReceiverBankName { get; set; }
     public string? ReceiverAccount { get; set; }

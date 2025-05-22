@@ -53,10 +53,25 @@ namespace JacoBankAPI.Service
             }
 
             //扣款與入帳
-            sender.Balance -= transferRequest.Amount;
-            receiver.Balance += transferRequest.Amount;
+            //取出轉出方最新餘額
+            var lastSenderTrans = await _jacoBankContext.CustomerTransInfos
+                .Where(t => t.BankInfoId == sender.BankInfoId)
+                .OrderByDescending(t => t.TransDate)
+                .FirstOrDefaultAsync();
+            decimal senderCurrentBalance = lastSenderTrans?.BalanceAfter ?? 0;
 
-            //建立交易記錄（轉出/轉入）
+            //檢查餘額
+            if (senderCurrentBalance < transferRequest.Amount)
+                return new TransferResponseModel { IsSuccess = false, Message = "餘額不足" };
+
+            //取出收款方最新餘額
+            var lastReceiverTrans = await _jacoBankContext.CustomerTransInfos
+                .Where(t => t.BankInfoId == receiver.BankInfoId)
+                .OrderByDescending(t => t.TransDate)
+                .FirstOrDefaultAsync();
+            decimal receiverCurrentBalance = lastReceiverTrans?.BalanceAfter ?? 0;
+
+            //建交易紀錄（設定 BalanceAfter）
             var nowdate = DateTime.Now;
             _jacoBankContext.CustomerTransInfos.Add(new CustomerTransInfo
             {
@@ -67,9 +82,9 @@ namespace JacoBankAPI.Service
                 Note = transferRequest.Note,
                 TransDate = nowdate,
                 ReceiverBankName = transferRequest.ToBankName,
-                ReceiverAccount = transferRequest.ToAccountNumber
+                ReceiverAccount = transferRequest.ToAccountNumber,
+                BalanceAfter = senderCurrentBalance - transferRequest.Amount
             });
-
             _jacoBankContext.CustomerTransInfos.Add(new CustomerTransInfo
             {
                 CustomerId = receiver.CustomerId,
@@ -79,14 +94,17 @@ namespace JacoBankAPI.Service
                 Note = transferRequest.Note,
                 TransDate = nowdate,
                 ReceiverBankName = sender.BankName,
-                ReceiverAccount = sender.AccountNumber
+                ReceiverAccount = sender.AccountNumber,
+                BalanceAfter = receiverCurrentBalance + transferRequest.Amount
             });
 
-            //儲存所有變更，完成交易
-            await _jacoBankContext.SaveChangesAsync();
+            //同步更新CustomerBankInfo.Balance
+            sender.Balance = senderCurrentBalance - transferRequest.Amount;
+            receiver.Balance = receiverCurrentBalance + transferRequest.Amount;
+
+            //儲存
+            await _jacoBankContext.SaveChangesAsync();         
             return new TransferResponseModel { IsSuccess = true, Message = "轉帳成功" };
-
-
         }
     }
 

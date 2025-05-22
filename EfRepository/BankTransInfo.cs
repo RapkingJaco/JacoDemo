@@ -23,6 +23,7 @@ namespace EfRepository
         public DateTime? EndDate { get; set; }
         public string TransType { get; set; }
         public decimal Amount { get; set; }
+        public decimal BalanceAfter { get; set; }
         public string Note { get; set; }
         public string? ReceiverBankName { get; set; }
         public string? ReceiverAccount { get; set; }

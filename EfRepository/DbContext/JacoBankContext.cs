@@ -65,6 +65,7 @@ public partial class JacoBankContext : DbContext
             entity.ToTable("CustomerTransInfo");
 
             entity.Property(e => e.Amount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.BalanceAfter).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Note).HasMaxLength(255);
             entity.Property(e => e.TransDate)
                 .HasDefaultValueSql("(getdate())")

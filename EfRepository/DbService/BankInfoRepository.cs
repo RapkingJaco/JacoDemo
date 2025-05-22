@@ -32,7 +32,7 @@ namespace EfRepository.DbService
                                 BankInfoId = bank.BankInfoId,                 // 帳戶資訊 ID
                                 BankName = bank.BankName,                     // 銀行名稱
                                 AccountNumber = bank.AccountNumber,           // 帳號
-                                Balance = bank.Balance,                       // 帳戶餘額
+                                Balance = trans.BalanceAfter,                 // 帳戶餘額
                                 TransId = trans.TransId,                      // 交易 ID
                                 TransDate = trans.TransDate,                  // 交易日期
                                 ReceiverBankName = trans.ReceiverBankName,    // 收款銀行 (跨行)
@@ -67,7 +67,8 @@ namespace EfRepository.DbService
 
             //IsCrossBank 為 true：只顯示跨行交易
             if (query.IsCrossBank)
-                queryable = queryable.Where(q => !string.IsNullOrEmpty(q.ReceiverBankName));
+                queryable = queryable.Where(q => q.BankName != q.ReceiverBankName);
+
 
             //最後依交易日期降序排序
             return await queryable
