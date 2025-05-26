@@ -106,17 +106,15 @@ namespace EfRepository.DbService
                 return false;
             }
 
-            var hashedPassword = passwordService.HashPasswordWithBCrypt(customer.Password);
-
             // 更新主密碼
-            existingCustomer.Password = hashedPassword;
+            existingCustomer.Password = customer.Password;
             existingCustomer.CreatedAt = DateTime.Now;
 
             // 寫入密碼歷史
             var passwordHistory = new PasswordHistory
             {
                 CustomerId = customer.CustomerId,
-                HashedPassword = hashedPassword,
+                HashedPassword = customer.Password,
                 ChangedAt = DateTime.Now
             };
             _JacoBankContext.PasswordHistories.Add(passwordHistory);
