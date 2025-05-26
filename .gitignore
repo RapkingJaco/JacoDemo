@@ -32,7 +32,6 @@ publish/
 # Web 編譯產物
 *.js.map
 node_modules/
-dist/
 .env
 
 # 系統檔案
@@ -43,4 +42,3 @@ Thumbs.db
 # Rider (JetBrains) IDE 的檔案
 .idea/
 *.sln.iml
-JacoDemo/wwwroot/
