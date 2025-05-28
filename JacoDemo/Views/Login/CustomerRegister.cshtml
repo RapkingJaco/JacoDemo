@@ -111,10 +111,12 @@
             </div>
 
             <!-- 密碼 -->
-            <div class="form-group">
+            <div class="form-group">                
                 <label for="password">密碼</label>
+                <small class="form-text text-muted">
+                    * 密碼須8–20字，含大寫、小寫、數字及特殊符號
                 <input type="password" id="password" asp-for="Password" required placeholder="輸入密碼">
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="Password" class="text-danger"></span>                
             </div>
 
             <!-- 確認密碼 -->
